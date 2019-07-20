@@ -124,7 +124,6 @@ void Bluetooth::write(QStringList data)
 
 void Bluetooth::write(const char data)
 {
-    qDebug() << data;
     write(QString("%1").arg(data));
 }
 

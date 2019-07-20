@@ -14,6 +14,7 @@
 
 #include "Bluetooth.h"
 #include "Terminal.h"
+#include "Logger.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,11 +37,12 @@ private:
         READY,
     };
 
-    State state = DISCONNECTED;
-    QTimer *timeoutTimer = nullptr;
-    QString terminalData;       //Keeps track of data written to the terminal window
+    State state             = DISCONNECTED;
+    QTimer *timeoutTimer    = nullptr;
+    Bluetooth *bluetooth    = nullptr;
+    Logger *logger          = nullptr;
 
-    Bluetooth *bluetooth = nullptr;
+    QString terminalData;       //Keeps track of data written to the terminal window
 
     void startConnectTimeoutTimer();
 
@@ -58,6 +60,13 @@ private slots:
     void on_ConnectButton_released();
     void on_EchoTerminalCheck_toggled(bool checked);
     void on_DisplayInHexCheck_toggled(bool checked);
+    void on_BrowseButton_released();
+    void on_StartStopLoggingButton_released();
+    void on_LogRawDataCheck_toggled(bool checked);
+    void on_actionCapture_Terminal_triggered();
+    void on_actionStart_Logging_triggered();
+    void on_actionStop_Logging_triggered();
+    void on_OvevrwritePromptCheck_toggled(bool checked);
 };
 
 #endif // MAINWINDOW_H

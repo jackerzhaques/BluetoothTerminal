@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>630</width>
-    <height>376</height>
+    <height>424</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,16 +15,13 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0" rowspan="3">
-     <widget class="QWidget" name="widget_2" native="true">
-      <property name="maximumSize">
-       <size>
-        <width>300</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="0" colspan="3">
+    <item row="0" column="0">
+     <widget class="QWidget" name="widget_4" native="true">
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="2" column="1">
+        <widget class="QWidget" name="widget_5" native="true"/>
+       </item>
+       <item row="1" column="0" colspan="2">
         <widget class="QWidget" name="widget_3" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <property name="leftMargin">
@@ -56,7 +53,7 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>100</width>
+              <width>9999999</width>
               <height>16777215</height>
              </size>
             </property>
@@ -75,65 +72,52 @@
          </layout>
         </widget>
        </item>
-       <item row="0" column="0" colspan="3">
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Control</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="EchoTerminalCheck">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Echo Terminal</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0" colspan="3">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="3" column="0">
+        <widget class="QCheckBox" name="LogRawDataCheck">
+         <property name="statusTip">
+          <string>Logs data as hex values separated by commas. Newlines are preserved.</string>
+         </property>
+         <property name="whatsThis">
+          <string>Logs data as hex values separated by commas. Newlines are preserved.</string>
+         </property>
+         <property name="text">
+          <string>Log Raw Data</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
         <widget class="QPushButton" name="StartStopLoggingButton">
          <property name="text">
           <string>Start Logging</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QCheckBox" name="DisplayInHexCheck">
+       <item row="4" column="0">
+        <widget class="QCheckBox" name="OvevrwritePromptCheck">
          <property name="text">
-          <string>Display In Hex</string>
+          <string>Prompt when overwriting</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="label_6">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Logging</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
-    <item row="3" column="0" rowspan="2">
+    <item row="4" column="0" rowspan="2">
      <widget class="QWidget" name="widget" native="true">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="1" column="0">
@@ -195,11 +179,71 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="1" rowspan="5">
+    <item row="0" column="1" rowspan="6">
      <widget class="Terminal" name="terminal">
       <property name="readOnly">
        <bool>true</bool>
       </property>
+     </widget>
+    </item>
+    <item row="1" column="0" rowspan="3">
+     <widget class="QWidget" name="widget_2" native="true">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0" colspan="3">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Control</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QCheckBox" name="EchoTerminalCheck">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Echo Terminal</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="3">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="5" column="0">
+        <widget class="QCheckBox" name="DisplayInHexCheck">
+         <property name="text">
+          <string>Display In Hex</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -213,6 +257,15 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionCapture_Terminal"/>
+    <addaction name="actionStart_Logging"/>
+    <addaction name="actionStop_Logging"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -223,6 +276,21 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionCapture_Terminal">
+   <property name="text">
+    <string>Capture Terminal</string>
+   </property>
+  </action>
+  <action name="actionStart_Logging">
+   <property name="text">
+    <string>Start Logging</string>
+   </property>
+  </action>
+  <action name="actionStop_Logging">
+   <property name="text">
+    <string>Stop Logging</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

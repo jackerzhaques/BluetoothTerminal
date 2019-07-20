@@ -12,6 +12,7 @@ void Terminal::addText(QString text, bool incoming)
 {
     asciiText.append(text);
     this->updateTerminal(asciiText);
+    emit textAdded(text);
 }
 
 //TODO: Implement text coloring
@@ -19,6 +20,7 @@ void Terminal::addText(QByteArray text, bool incoming)
 {
     asciiText.append(text);
     this->updateTerminal(asciiText);
+    emit textAdded(text);
 }
 
 QString Terminal::getText()
@@ -61,7 +63,6 @@ void Terminal::keyPressEvent(QKeyEvent *e)
 
     //If converted correctly send the character
     if(c){
-        qDebug() << c;
         emit textEnterred(c);
 
         if(echoEnabled){

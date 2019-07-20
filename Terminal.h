@@ -28,6 +28,7 @@ public:
 
 signals:
     void textEnterred(char c);
+    void textAdded(QString text);
 
 private:
     void keyPressEvent(QKeyEvent *e) override;

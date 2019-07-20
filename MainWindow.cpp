@@ -2,17 +2,15 @@
 #include "ui_MainWindow.h"
 
 #include <QDebug>
-
-//TODO: Migrate bluetooth into the "Bluetooth" class.
-//I left off at populating a list of bluetooth devices on the UI.
-//The next thing I need to do is implement connecting to a bluetooth device by name.
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //this->startDeviceDiscovery();
+
+    this->setWindowTitle("Bluetooth Terminal");
 
     /*
      * Bluetooth instance
@@ -46,6 +44,19 @@ MainWindow::MainWindow(QWidget *parent) :
      * data enterred by the user.
      */
     connect(ui->terminal, SIGNAL(textEnterred(char)), this, SLOT(sendUserInput(char)));
+
+    /*
+     *
+     * The logger class handles logging data to a file.
+     *
+     * This class allows logging data as text, hex, splitting log files (TX and RX files), and more.
+     */
+    logger = new Logger(this);
+    connect(ui->terminal, SIGNAL(textAdded(QString)), logger, SLOT(log(QString)));
+
+    //Apply default settings here
+    ui->LogPathInput->setText(logger->getLogFilePath());
+    ui->OvevrwritePromptCheck->setChecked(true);
 }
 
 MainWindow::~MainWindow()
@@ -143,4 +154,59 @@ void MainWindow::on_DisplayInHexCheck_toggled(bool checked)
     else{
         ui->terminal->setDisplayMode(Terminal::ASCII);
     }
+}
+
+void MainWindow::on_BrowseButton_released()
+{
+    QString path = QFileDialog::getSaveFileName(this, "Log File",
+                                                logger->getLogFilePath(),
+                                                "Text Files (*.txt);;CSV Files (*.csv);;All Files (*.*)");
+
+    logger->setLogFile(path);
+}
+
+void MainWindow::on_StartStopLoggingButton_released()
+{
+    if(logger->isLogging()){
+        logger->stopLogging();
+        ui->StartStopLoggingButton->setText("Start Logging");
+    }
+    else{
+        logger->startLogging();
+        if(logger->isLogging()){
+            ui->StartStopLoggingButton->setText("Stop Logging");
+        }
+    }
+}
+
+void MainWindow::on_LogRawDataCheck_toggled(bool checked)
+{
+    logger->logInHex(checked);
+}
+
+void MainWindow::on_actionCapture_Terminal_triggered()
+{
+    //Capture the terminal by writing all of the terminal's contents to the logger
+    if(!logger->isLogging()){
+        logger->startLogging();
+        if(logger->isLogging()){
+            logger->log(ui->terminal->getText());
+            logger->stopLogging();
+        }
+    }
+}
+
+void MainWindow::on_actionStart_Logging_triggered()
+{
+    logger->startLogging();
+}
+
+void MainWindow::on_actionStop_Logging_triggered()
+{
+    logger->stopLogging();
+}
+
+void MainWindow::on_OvevrwritePromptCheck_toggled(bool checked)
+{
+    logger->promptWhenOverwriting(checked);
 }

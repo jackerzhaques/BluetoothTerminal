@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         MainWindow.cpp \
     Bluetooth.cpp \
-    Terminal.cpp
+    Terminal.cpp \
+    Logger.cpp
 
 HEADERS += \
         MainWindow.h \
     Bluetooth.h \
-    Terminal.h
+    Terminal.h \
+    Logger.h
 
 FORMS += \
         MainWindow.ui
