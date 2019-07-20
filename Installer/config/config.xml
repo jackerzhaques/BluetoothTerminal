@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+	<Name>Bluetooth Terminal</Name>
+	<Version>1.0.0</Version>
+	<Title>Bluetooth Terminal Installer</Title>
+	<Publisher>Todd Morehouse</Publisher>
+	<StartMenuDir>Bluetooth Terminal</StartMenuDir>
+	<TargetDir>C:/BluetoothTerminal</TargetDir>
+</Installer>
