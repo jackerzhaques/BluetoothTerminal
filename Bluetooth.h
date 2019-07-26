@@ -21,6 +21,9 @@
  *
  */
 
+//Project includes
+#include "Logger.h"
+
 //Qt includes
 #include <QObject>
 #include <QString>
@@ -40,6 +43,7 @@ class Bluetooth : public QObject
     Q_OBJECT
 public:
     explicit Bluetooth(QObject *parent = nullptr);
+    ~Bluetooth();
 
     //Connection functions
     void refreshDeviceList();
@@ -87,6 +91,11 @@ private:
     QBluetoothUuid UARTuuid = QBluetoothUuid(UART_UUID);
     QLowEnergyDescriptor m_notificationDesc;
 
+    Logger *logger = nullptr;
+    QString LogFilePath = "BluetoothDebug.txt";
+
+    void logMessage(QString message);
+
 private slots:
     void deviceDiscovered(const QBluetoothDeviceInfo &device);
     void serviceDiscovered(QBluetoothUuid uuid);
@@ -96,6 +105,8 @@ private slots:
     void handleServiceStateChange(QLowEnergyService::ServiceState state);
     void handleCharacteristicChange(QLowEnergyCharacteristic characteristic, QByteArray data);
     void handleDescriptorWrite(QLowEnergyDescriptor descriptor, QByteArray data);
+    void handleError(QLowEnergyController::Error error);
+    void handleServiceError(QLowEnergyService::ServiceError error);
 };
 
 #endif // BLUETOOTH_H

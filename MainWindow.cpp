@@ -75,43 +75,55 @@ void MainWindow::startConnectTimeoutTimer()
 
 void MainWindow::refreshDeviceList()
 {
-    QStringList devices = this->bluetooth->getDeviceList();
-    ui->BluetoothDevicesBox->clear();
-    ui->BluetoothDevicesBox->addItems(devices);
+    if(bluetooth){
+        QStringList devices = this->bluetooth->getDeviceList();
+        ui->BluetoothDevicesBox->clear();
+        ui->BluetoothDevicesBox->addItems(devices);
+    }
 }
 
 void MainWindow::handleBluetoothConnect()
 {
-    this->timeoutTimer->stop();
-    QString txt = "Connected to " + bluetooth->getDeviceName();
-    ui->StatusLabel->setText(txt);
-    ui->ConnectButton->setText("Disconnect");
-    this->state = CONNECTED;
+    if(bluetooth){
+        this->timeoutTimer->stop();
+        QString txt = "Connected to " + bluetooth->getDeviceName();
+        ui->StatusLabel->setText(txt);
+        ui->ConnectButton->setText("Disconnect");
+        this->state = CONNECTED;
+    }
 }
 
 void MainWindow::handleBluetoothDisconnect()
 {
-    QString txt = "Disconnected from " + bluetooth->getDeviceName();
-    ui->StatusLabel->setText(txt);
-    ui->ConnectButton->setText("Connect");
-    this->state = DISCONNECTED;
+    if(bluetooth){
+        QString txt = "Disconnected from " + bluetooth->getDeviceName();
+        ui->StatusLabel->setText(txt);
+        ui->ConnectButton->setText("Connect");
+        this->state = DISCONNECTED;
+    }
 }
 
 void MainWindow::handleTransmitReady()
 {
-    qDebug() << "ready!";
-    this->state = READY;
-    bluetooth->write("Death and despair!");
+    if(bluetooth){
+        qDebug() << "ready!";
+        this->state = READY;
+        bluetooth->write("Death and despair!");
+    }
 }
 
 void MainWindow::collectData()
 {
-    ui->terminal->addText(bluetooth->readAll(), true);
+    if(bluetooth){
+        ui->terminal->addText(bluetooth->readAll(), true);
+    }
 }
 
 void MainWindow::sendUserInput(char c)
 {
-    bluetooth->write(c);
+    if(bluetooth){
+        bluetooth->write(c);
+    }
 }
 
 void MainWindow::connectionTimeout()
@@ -123,21 +135,25 @@ void MainWindow::connectionTimeout()
 
 void MainWindow::on_RefreshDevicesButton_released()
 {
-    bluetooth->refreshDeviceList();
+    if(bluetooth){
+        bluetooth->refreshDeviceList();
+    }
 }
 
 void MainWindow::on_ConnectButton_released()
 {
-    if(this->state == DISCONNECTED){
-        QString deviceName = ui->BluetoothDevicesBox->currentText();
-        if(!deviceName.isEmpty()){
-            ui->StatusLabel->setText("Connecting...");
-            this->startConnectTimeoutTimer();
-            bluetooth->connectToDevice(deviceName);
+    if(bluetooth){
+        if(this->state == DISCONNECTED){
+            QString deviceName = ui->BluetoothDevicesBox->currentText();
+            if(!deviceName.isEmpty()){
+                ui->StatusLabel->setText("Connecting...");
+                this->startConnectTimeoutTimer();
+                bluetooth->connectToDevice(deviceName);
+            }
         }
-    }
-    else{
-        bluetooth->disconnectFromDevice();
+        else{
+            bluetooth->disconnectFromDevice();
+        }
     }
 }
 
